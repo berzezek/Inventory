@@ -7,8 +7,8 @@ export default function CategoryAdd() {
     const [category_title, setCategory_title] = useState("")
     const [category_description, setCategory_description] = useState("")
 
-    const AddNewCategory = async () => {
-
+    const AddNewCategory = async (e) => {
+        e.preventDefault();
         const formField = new FormData()
 
         formField.append('category_title', category_title)
@@ -16,17 +16,19 @@ export default function CategoryAdd() {
 
     if (category_title) {
         await axios({
-            headers: {"X-CSRFToken": csrftoken },
+            headers: {},
             method: 'post',
             url: variable.MainUrl + `api/v1/category/`,
             data: formField
         }).then(response => {
             alert(`Category ${category_title} has been added`);
+            window.location.reload();
             })
         } else {
             alert('Please enter any title')
         }
     }
+
     return (
         <div className="container sm">
             <h3 className="text-center">Add new Category</h3>

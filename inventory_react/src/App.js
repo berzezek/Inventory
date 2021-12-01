@@ -18,6 +18,8 @@ import OwnerDetail from './components/detail/ownerDetail';
 import DepartamentDetail from './components/detail/departamentDetail';
 import InventoryDetail from './components/detail/inventoryDetail';
 
+import LoginComp from './components/auth/login';
+
 
 class App extends React.Component {
   render() {
@@ -43,6 +45,8 @@ class App extends React.Component {
             <Route path="/departament_add"><DepartamentAdd /></Route>
             <Route path="/owner_add"><OwnerAdd /></Route>
             <Route path="/inventory_add"><InventoryAdd /></Route>
+
+            <Route path="/login"><LoginComp /></Route>
 
           </Switch>
       </div>
