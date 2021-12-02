@@ -16,13 +16,13 @@ export default function DepartamentAdd() {
 
     if (departament_title) {
         await axios({
-            headers: {"X-CSRFToken":csrftoken },
+            headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
             method: 'post',
             url: variable.MainUrl + `api/v1/departament/`,
             data: formField
-        }).then(response => {
-            alert(`departament ${departament_title} has been added`);
-            })
+        }).then(
+            alert(`departament ${departament_title} has been added`),
+            )
         } else {
             alert('Please enter any title')
         }

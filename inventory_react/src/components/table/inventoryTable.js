@@ -8,7 +8,7 @@ export default function InventoryTable() {
     let num = 1;
     let inventoryCount = 0;
     let totalSum = 0;
-    useGetApi({name: 'inventory'}).map(i => ( totalSum += i.price, inventoryCount ++ ))
+    useGetApi({name: 'inventory'}).map(i => (totalSum += i.price, inventoryCount++))
 
     return(
         <div className="">

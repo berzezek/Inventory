@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
-import {csrftoken} from '../global/csrfToken';
+
 
 export default function InventoryAdd() {
 
@@ -16,23 +16,29 @@ export default function InventoryAdd() {
     const [inventoryCategory, setInventoryCategory] = useState([])
     const [inventoryOwner, setInventoryOwner] = useState([])
 
-    useEffect( async () =>{
-        await axios({
-        method: "GET",
-        url: variable.MainUrl + `api/v1/owner/`
-        }).then(response => {
-        setInventoryOwner(response.data)
-        })
+    useEffect(() =>{
+        async function fetchData() {
+            await axios({
+            method: "GET",
+            url: variable.MainUrl + `api/v1/owner/`
+            }).then(response => {
+            setInventoryOwner(response.data)
+            })
+        }
+        fetchData();
     }, [])
 
 
-    useEffect( async () =>{
-        await axios({
-        method: "GET",
-        url: variable.MainUrl + `api/v1/category/`
-        }).then(response => {
-        setInventoryCategory(response.data)
-        })
+    useEffect(() =>{
+        async function fetchData() {
+            await axios({
+            method: "GET",
+            url: variable.MainUrl + `api/v1/category/`
+            }).then(response => {
+            setInventoryCategory(response.data)
+            })
+        }
+        fetchData();
     }, [])
 
     const AddNewInventory = async () => {
@@ -49,14 +55,13 @@ export default function InventoryAdd() {
 
     if (title && price && serial_number) {
         await axios({
-            headers: {"X-CSRFToken":csrftoken },
+            headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
             method: 'post',
             url: variable.MainUrl + `api/v1/inventory/`,
             data: formField
-        }).then(response => {
-            alert(`Inventory ${title} has been added`);
-            console.log(formField);
-            })
+        }).then(
+            alert(`Inventory ${title} has been added`),
+            )
         } else {
             alert('Title, Serial number & Price must be added');
         }

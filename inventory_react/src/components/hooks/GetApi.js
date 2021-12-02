@@ -6,13 +6,16 @@ function useGetApi(props) {
 
     const [apiArray, setApiArray] = useState([])
 
-    useEffect( async () => {
-        await axios({
-            method: "GET",
-            url: variable.MainUrl + `api/v1/${props.name}/`,
-        }).then(response => {
-            setApiArray(response.data)
-        })
+    useEffect(() => {
+        async function fetchData() {
+            await axios({
+                method: "GET",
+                url: variable.MainUrl + `api/v1/${props.name}/`,
+            }).then(response => {
+                setApiArray(response.data)
+            })
+          }
+          fetchData();
     }, [])
 
     return apiArray;

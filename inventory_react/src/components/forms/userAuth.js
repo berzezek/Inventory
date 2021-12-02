@@ -8,14 +8,14 @@ export default function UserAuth() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    const UserAuth = async (e) => {
+    const UserAuth = (e) => {
         e.preventDefault();
         const formField = new FormData()
 
         formField.append('username', username)
         formField.append('password', password)
 
-        await axios({
+        axios({
             method: 'post',
             url: variable.MainUrl + 'api-auth/login/',
             data: formField

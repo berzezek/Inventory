@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {csrftoken} from '../global/csrfToken';
 import {variable} from '../global/url';
 import { useHistory } from "react-router-dom";
 
@@ -19,7 +18,7 @@ export default function DepartamentEdit(props) {
     e.preventDefault();
 
     await axios({
-        headers: {"X-CSRFToken": csrftoken },
+        headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
         method: 'put',
         url: variable.MainUrl + `api/v1/${name}/${id}/`,
         data: dataUser

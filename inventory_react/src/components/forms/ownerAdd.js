@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
-import {csrftoken} from '../global/csrfToken';
 
 
 export default function OwnerAdd() {
@@ -13,13 +12,16 @@ export default function OwnerAdd() {
 
     const [departament, setDepartament] = useState([])
 
-    useEffect( async () =>{
+    useEffect(() =>{
+      async function fetchData() {
         await axios({
-        method: "GET",
-        url: variable.MainUrl + `api/v1/departament/`
-        }).then(response => {
-        setDepartament(response.data)
-        })
+            method: "GET",
+            url: variable.MainUrl + `api/v1/departament/`
+            }).then(response => {
+            setDepartament(response.data)
+            })
+        }
+        fetchData();
     }, [])
 
     const AddNewOwner = async () => {
@@ -33,13 +35,13 @@ export default function OwnerAdd() {
 
     if (surname && name) {
         await axios({
-            headers: {"X-CSRFToken":csrftoken },
+            headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
             method: 'post',
             url: variable.MainUrl + `api/v1/owner/`,
             data: formField
-        }).then(response => {
-            alert(`Owner ${surname} ${name} has been added`);
-            })
+        }).then(
+            alert(`Owner ${surname} ${name} has been added`),
+            )
         } else {
             alert('Surname & Name must be added');
         }

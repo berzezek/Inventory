@@ -2,14 +2,12 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
 import { useHistory } from "react-router-dom";
-import { Form, Button } from 'react-bootstrap';
 
 const LoginComp = () => {
 
   const history = useHistory();
   const [email, setEmail] = useState("admin@admin.com");
-  const [password, setPassword] = useState();
-
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,13 +25,10 @@ const LoginComp = () => {
             url: variable.MainUrl + `api/auth/users/login/`,
             data: formData
         }).then(response => {
-        if (response.statusText == 'OK') {
+        if (response.statusText === 'OK') {
             const token = response.data['user']['token'];
-            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
             alert('You are logged in');
-            console.log(label);
-            label = "OK";
-            console.log(label);
+            label = 'LOG';
             history.push(`/`);
         } else {
             alert('Please enter correct');
@@ -73,6 +68,5 @@ return(
     </div>
     )
 }
-
 
 export default LoginComp;

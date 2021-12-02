@@ -16,7 +16,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
         ли того эндпоинт аутентификации. 'authenticate' имеет два возможных
         возвращаемых значения:
             1) None - мы возвращаем None если не хотим аутентифицироваться.
-            Обычно это означает, что мы значем, что аутентификация не удастся.
+            Обычно это означает, что мы зачем, что аутентификация не удастся.
             Примером этого является, например, случай, когда токен не включен в
             заголовок.
             2) (user, token) - мы возвращаем комбинацию пользователь/токен
@@ -29,7 +29,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
 
         # 'auth_header' должен быть массивом с двумя элементами:
         # 1) именем заголовка аутентификации (Token в нашем случае)
-        # 2) сам JWT, по которому мы должны пройти аутентифкацию
+        # 2) сам JWT, по которому мы должны пройти аутентификацию
         auth_header = authentication.get_authorization_header(request).split()
         auth_header_prefix = self.authentication_header_prefix.lower()
 
@@ -82,4 +82,3 @@ class JWTAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed(msg)
 
         return (user, token)
-

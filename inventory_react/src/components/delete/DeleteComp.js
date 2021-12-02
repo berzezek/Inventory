@@ -1,29 +1,27 @@
 import React from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
-import {csrftoken} from '../global/csrfToken';
 import { useHistory } from "react-router-dom";
 
 
 const DeleteComp = (props) => {
 
     const history = useHistory();
-    const name = props.name
-    const id = props.id
+    const name = props.name;
+    const id = props.id;
 
     const DeleteThis = async (e) => {
         e.preventDefault();
 
         if (window.confirm(`Delete ${name}... Are you sure?`)) {
             await axios({
-                headers: {"X-CSRFToken": csrftoken },
+                headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
                 method: 'delete',
                 url: variable.MainUrl + `api/v1/${name}/${id}`,
-            }).then(response => {
-                alert(`The ${name} was been deleted`);
             }).then(history.push(`/${name}`),
-                window.location.reload()
-        )}
+                alert(`The ${name} was been deleted`),
+                window.location.reload(),
+                )}
     }
 
     return (

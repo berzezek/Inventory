@@ -15,8 +15,8 @@ def core_exception_handler(exc, context):
     exception_class = exc.__class__.__name__
 
     if exception_class in handlers:
-        # Если это исключение можно обработать - обработать :) В противном
-        # случае, вернуть ответ сгенерированный стандартными средствами заранее
+        # Если это исключение можно обработать - обработать. В противном
+        # случае вернуть ответ сгенерированный стандартными средствами заранее
         return handlers[exception_class](exc, context, response)
 
     return response
