@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
-import {csrftoken} from '../global/csrfToken';
 
 
 export default function DepartamentAdd() {

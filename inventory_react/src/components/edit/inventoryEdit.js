@@ -7,7 +7,6 @@ import useGetApi from '../hooks/GetApi';
 
 export default function InventoryEdit(props) {
 
-  const [data, setData] = useState([]);
   const history = useHistory();
   const id = props.id;
   const name = props.name;
@@ -30,8 +29,6 @@ export default function InventoryEdit(props) {
     owner: inventoryOwner.id,
     };
 
-  console.log(dataUser)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios({
@@ -39,12 +36,11 @@ export default function InventoryEdit(props) {
         method: 'put',
         url: variable.MainUrl + `api/v1/${name}/${id}/`,
         data: dataUser
-      }).then(res => {
-      setData(res.data);
-      alert(`The ${name} was been edited`)
-    }).then(history.push(`/${name}`),
-       window.location.reload()
-    )
+      }).then(
+        alert(`The ${name} was been edited`),
+        history.push(`/${name}`),
+        window.location.reload()
+        )
   }
 
   return (

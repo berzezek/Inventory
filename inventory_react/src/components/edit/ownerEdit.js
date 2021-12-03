@@ -7,7 +7,6 @@ import useGetApi from '../hooks/GetApi';
 
 export default function OwnerEdit(props) {
 
-  const [data, setData] = useState([]);
   const history = useHistory();
   const id = props.id;
   const name = props.name
@@ -31,12 +30,11 @@ export default function OwnerEdit(props) {
         method: 'put',
         url: variable.MainUrl + `api/v1/${name}/${id}/`,
         data: dataUser
-      }).then(res => {
-      console.log(res.data);
-      alert(`The ${name} was been edited`)
-    }).then(history.push(`/${name}`),
-       window.location.reload()
-    )
+      }).then(
+        alert(`The ${name} was been edited`),
+        history.push(`/${name}`),
+        window.location.reload()
+        )
   }
 
   return (

@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 
 export default function DepartamentEdit(props) {
 
-  const [data, setData] = useState([]);
   const history = useHistory();
   const id = props.id;
   const name = props.name
@@ -22,12 +21,11 @@ export default function DepartamentEdit(props) {
         method: 'put',
         url: variable.MainUrl + `api/v1/${name}/${id}/`,
         data: dataUser
-      }).then(res => {
-      setData(res.data);
-      alert(`The ${name} was been edited`)
-    }).then(history.push(`/${name}`),
-       window.location.reload()
-    )
+      }).then(
+        alert(`The ${name} was been edited`),
+        history.push(`/${name}`),
+        window.location.reload()
+        )
   }
 
   return (

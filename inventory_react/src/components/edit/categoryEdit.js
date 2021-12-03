@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
 import { useHistory } from "react-router-dom";
@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 
 export default function CategoryEdit(props) {
 
-  const [data, setData] = useState([]);
   const history = useHistory();
   const id = props.id;
   const name = props.name
@@ -19,15 +18,14 @@ export default function CategoryEdit(props) {
 
     await axios({
         headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
-        method: 'put',
+        method: 'post',
         url: variable.MainUrl + `api/v1/${name}/${id}/`,
         data: dataUser
-      }).then(res => {
-      setData(res.data);
-      alert(`The ${name} was been edited`)
-    }).then(history.push(`/${name}`),
-       window.location.reload()
-    )
+      }).then(
+        alert(`The ${name} was been edited`),
+        history.push(`/${name}`),
+        window.location.reload()
+        )
   }
 
   return (

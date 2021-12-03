@@ -115,13 +115,10 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
 AUTH_USER_MODEL = 'authentication.User'
 
 
 REST_FRAMEWORK = {
-    # 'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
     'EXCEPTION_HANDLER': 'authentication.api.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': (

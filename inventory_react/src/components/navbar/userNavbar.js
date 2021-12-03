@@ -8,13 +8,14 @@ import {
   Button
   } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import logo from '../../logo.png';
 
 
 const UserNavbar = () => {
     return (
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand href="/">Ateca hotel suites</Navbar.Brand>
+            <Navbar.Brand href="/"><img src={logo} alt="Ateca logo" width="150"/></Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
               <Nav
