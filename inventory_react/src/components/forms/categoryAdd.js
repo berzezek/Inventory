@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
+import {csrftoken} from '../global/csrfToken';
 
 
 export default function CategoryAdd() {
@@ -16,7 +17,10 @@ export default function CategoryAdd() {
 
     if (category_title) {
         await axios({
-            headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
+            headers: {
+                'Authorization': `Token ${window.localStorage['access_token']}`,
+                 "X-CSRFToken": csrftoken
+                 },
             method: 'post',
             url: variable.MainUrl + `api/v1/category/`,
             data: formField
