@@ -26,7 +26,7 @@ const LoginComp = () => {
         await axios({
             headers: {"X-CSRFToken": csrftoken },
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/auth/users/login/',
+            url: variable.MainUrl + 'api/auth/users/login/',
             data: formData
         }).then(response => {
         if (response.statusText === 'OK') {
