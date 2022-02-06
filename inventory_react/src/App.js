@@ -46,7 +46,7 @@ class App extends React.Component {
             <Route path="/owner_add"><OwnerAdd /></Route>
             <Route path="/inventory_add"><InventoryAdd /></Route>
 
-            <Route path="/login"><LoginComp /></Route>
+            <Route path="/auth"><LoginComp /></Route>
 
           </Switch>
       </div>

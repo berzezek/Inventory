@@ -15,7 +15,7 @@ const DeleteComp = (props) => {
 
         if (window.confirm(`Delete ${name}... Are you sure?`)) {
             await axios({
-                headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
+                headers: {Authorization: `JWT ${localStorage.getItem('token')}`},
                 method: 'delete',
                 url: variable.MainUrl + `api/v1/${name}/${id}`,
             }).then(history.push(`/${name}`),

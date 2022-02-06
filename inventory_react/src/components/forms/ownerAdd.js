@@ -35,7 +35,7 @@ export default function OwnerAdd() {
 
     if (surname && name) {
         await axios({
-            headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
+            headers: {Authorization: `JWT ${localStorage.getItem('token')}`},
             method: 'post',
             url: variable.MainUrl + `api/v1/owner/`,
             data: formField

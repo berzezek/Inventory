@@ -14,20 +14,20 @@ export default function CategoryAdd() {
 
         formField.append('category_title', category_title)
         formField.append('category_description', category_description)
-
-    if (category_title) {
-        await axios({
-            headers: {
-                'Authorization': `Token ${window.localStorage['access_token']}`,
-                 "X-CSRFToken": csrftoken
-                 },
-            method: 'post',
-            url: variable.MainUrl + `api/v1/category/`,
-            data: formField
-        }).then(alert(`Category ${category_title} has been added`))
-        } else {
-            alert('Please enter any title')
-        }
+    
+        if (category_title) {
+            await axios({
+                headers: {Authorization: `JWT ${localStorage.getItem('token')}`},
+                method: 'post',
+                url: variable.MainUrl + `api/v1/category/`,
+                data: formField
+            })
+            .then(response => {
+                if (response.statusText === 'Created') {
+                    alert(`Category ${category_title} has been added`)
+                } else { alert('Something wrong') }
+            })
+        } else { alert('Please enter any title') }
     }
 
     return (

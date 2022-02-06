@@ -15,7 +15,7 @@ export default function DepartamentAdd() {
 
     if (departament_title) {
         await axios({
-            headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
+            headers: {Authorization: `JWT ${localStorage.getItem('token')}`},
             method: 'post',
             url: variable.MainUrl + `api/v1/departament/`,
             data: formField

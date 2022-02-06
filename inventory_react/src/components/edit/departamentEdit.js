@@ -17,10 +17,10 @@ export default function DepartamentEdit(props) {
     e.preventDefault();
 
     await axios({
-        headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
-        method: 'put',
-        url: variable.MainUrl + `api/v1/${name}/${id}/`,
-        data: dataUser
+      headers: {Authorization: `JWT ${localStorage.getItem('token')}`},
+      method: 'put',
+      url: variable.MainUrl + `api/v1/${name}/${id}/`,
+      data: dataUser
       }).then(
         alert(`The ${name} was been edited`),
         history.push(`/${name}`),

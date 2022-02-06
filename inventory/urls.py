@@ -28,6 +28,5 @@ urlpatterns = [
     path('departament_edit/<int:id>/', detail),
     path('departament_add/', index),
 
-
     path('login/', index),
 ]

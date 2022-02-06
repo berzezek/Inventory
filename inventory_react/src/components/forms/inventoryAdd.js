@@ -55,7 +55,7 @@ export default function InventoryAdd() {
 
     if (title && price && serial_number) {
         await axios({
-            headers: {'Authorization': `Token ${window.localStorage['access_token']}`},
+            headers: {Authorization: `JWT ${localStorage.getItem('token')}`},
             method: 'post',
             url: variable.MainUrl + `api/v1/inventory/`,
             data: formField
@@ -86,30 +86,34 @@ export default function InventoryAdd() {
                   ))}
                 </select>
                 </div>
+                <div className='d-flex my-1'>
                 <input
                     type="text"
-                    className="form-control my-2"
+                    className="form-control w-50 me-1"
                     placeholder="Title"
                     name="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     />
-                <input
-                    type="textarea"
-                    className="form-control mb-2"
-                    placeholder="Description"
-                    name="inventory_description"
-                    value={inventory_description}
-                    onChange={(e) => setInventory_description(e.target.value)}
-                    />
+                
                 <input
                     type="text"
-                    className="form-control mb-2"
+                    className="form-control w-50"
                     placeholder="Serial number"
                     name="serial_number"
                     value={serial_number}
                     onChange={(e) => setSerial_number(e.target.value)}
                     />
+                </div>
+                <input
+                    type="textarea"
+                    className="form-control mb-1"
+                    placeholder="Description"
+                    name="inventory_description"
+                    value={inventory_description}
+                    onChange={(e) => setInventory_description(e.target.value)}
+                    />
+                
                 <div className="d-flex">
                 <input
                     type="text"

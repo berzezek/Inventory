@@ -24,11 +24,11 @@ const UserNavbar = () => {
                 navbarScroll
               >
 
-                <Nav.Link><Link to={{ pathname: `/category`, fromDashboard: false }} className="btn btn-outline-secondary ms-1">Category</Link></Nav.Link>
-                <Nav.Link><Link to={{ pathname: `/departament`, fromDashboard: false }} className="btn btn-outline-secondary ms-1">Departament</Link></Nav.Link>
-                <Nav.Link><Link to={{ pathname: `/owner`, fromDashboard: false }} className="btn btn-outline-secondary ms-1">Owner</Link></Nav.Link>
+                <Nav.Link><Link to={{ pathname: `/category`, fromDashboard: false }} className="btn btn-outline-secondary ">Category</Link></Nav.Link>
+                <Nav.Link><Link to={{ pathname: `/departament`, fromDashboard: false }} className="btn btn-outline-secondary ">Departament</Link></Nav.Link>
+                <Nav.Link><Link to={{ pathname: `/owner`, fromDashboard: false }} className="btn btn-outline-secondary ">Owner</Link></Nav.Link>
                 <Nav.Link><Link to={{ pathname: `/inventory`, fromDashboard: false }} className="btn btn-outline-secondary">Inventory</Link></Nav.Link>
-                <Nav.Link><Link to={{ pathname: `/login`, fromDashboard: false }} className="btn btn-outline-secondary">Login</Link></Nav.Link>
+                <Nav.Link><Link to={{ pathname: `/auth`, fromDashboard: false }} className="btn btn-outline-secondary">Login</Link></Nav.Link>
 
               </Nav>
               <Form className="d-flex">

@@ -1,19 +1,9 @@
-from django.urls import path, include
-from . import views
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-from rest_framework import routers
-router = routers.DefaultRouter()
-router.register('ping', views.PingViewSet, basename="ping")
+from django.urls import path
+from .views import current_user, UserList
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
-    path('token/access/', TokenRefreshView.as_view(), name='token_get_access'),
-    path('token/both/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('', include(router.urls))
+    path('current_user/', current_user),
+    path('token-auth/', obtain_jwt_token),
+    path('users/', UserList.as_view()),
 ]
-
-"""
-- For the first view, you send the refresh token to get a new access token.
-- For the second view, you send the client credentials (username and password)
-  to get BOTH a new access and refresh token.
-"""

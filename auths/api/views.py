@@ -1,21 +1,33 @@
-from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import ListModelMixin
+from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
+from rest_framework import permissions, status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from .serializers import UserSerializer, UserSerializerWithToken
 
 
-class PingViewSet(GenericViewSet, ListModelMixin):
+@api_view(['GET'])
+def current_user(request):
     """
-    Helpful class for internal health checks
-    for when your server deploys. Typical of AWS
-    applications behind ALB which does default 30
-    second ping/health checks.
+    Determine the current user by their token, and return their data
     """
-    permission_classes = [IsAuthenticated]
+    
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
 
-    def list(self, request, *args, **kwargs):
-        return Response(
-            data={"id": request.GET.get("id")},
-            status=HTTP_200_OK
-        )
+
+class UserList(APIView):
+    """
+    Create a new user. It's called 'UserList' because normally we'd have a get
+    method here too, for retrieving a list of all User objects.
+    """
+
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format=None):
+        serializer = UserSerializerWithToken(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

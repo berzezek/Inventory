@@ -1,80 +1,86 @@
-import React, {useState} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import {variable} from '../global/url';
-import { useHistory } from "react-router-dom";
-import { Form, Button } from 'react-bootstrap';
-import {csrftoken} from '../global/csrfToken';
+import LoginForm from '../forms/LoginForm';
+import Nav from '../navbar/Nav';
 
-const LoginComp = () => {
-
-  const history = useHistory();
-  const [email, setEmail] = useState("admin@admin.com");
-  const [password, setPassword] = useState();
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    let label = "Login";
-    const formData = {
-        'user': {
-            'email': email,
-            'password': password
-            }
-        }
-
-    if (email && password) {
-        await axios({
-            headers: {"X-CSRFToken": csrftoken },
-            method: 'post',
-            url: variable.MainUrl + 'api/auth/users/login/',
-            data: formData
-        }).then(response => {
-        if (response.statusText === 'OK') {
-            const token = response.data['user']['token'];
-            axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-            alert('You are logged in');
-            console.log(label);
-            label = "OK";
-            console.log(label);
-            history.push(`/`);
-        } else {
-            alert('Please enter correct');
-            window.location.reload();
-            }
-        }
-        )} else {
-            alert('Please enter email & password');
-            }
+class LoginComp extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        displayed_form: '',
+        logged_in: localStorage.getItem('token') ? true : false,
+        username: ''
+      };
+    }
+    
+    componentDidMount() {
+      if (this.state.logged_in) {
+        fetch(`${variable.MainUrl}api/auth/current_user/`, {
+          headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+        })
+          .then(res => res.json())
+          .then(json => {
+            this.setState({ username: json.username });
+          });
+      }
+    }
+  
+    handle_login = (e, data) => {
+      e.preventDefault();
+      fetch(`${variable.MainUrl}api/auth/token-auth/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+        .then(res => res.json())
+        .then(json => {
+          localStorage.setItem('token', json.token);
+          this.setState({
+            logged_in: true,
+            displayed_form: '',
+            username: json.user.username
+          });
+        });
+    };
+  
+    handle_logout = () => {
+      localStorage.removeItem('token');
+      this.setState({ logged_in: false, username: '' });
+    };
+  
+    display_form = form => {
+      this.setState({
+        displayed_form: form
+      });
+    };
+  
+    render() {
+      let form;
+      switch (this.state.displayed_form) {
+        case 'login':
+          form = <LoginForm handle_login={this.handle_login} />;
+          break;
+        default:
+          form = null;
+      }
+      
+      return (
+        <div className="container">
+          <Nav
+            logged_in={this.state.logged_in}
+            display_form={this.display_form}
+            handle_logout={this.handle_logout}
+          />
+          {form}
+          <h4 className="mt-2 text-light text-center">
+            {this.state.logged_in
+              ? `Hello, ${this.state.username}`
+              : 'Please Log In'}
+          </h4>
+        </div>
+      );
+    }
   }
-
-return(
-    <div className="bg-light p-5 rounded">
-        <form className="form-control p-2" onSubmit={handleSubmit}>
-            <div className="d-flex my-2">
-            <input
-                type="email"
-                className="form-control me-1"
-                placeholder="Email"
-                name="email"
-                value={email}
-                autocomplete="email"
-                onChange={(e) => setEmail(e.target.value)}
-                />
-            <input
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                name="password"
-                value={password}
-                autocomplete="current-password"
-                onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <button type="submit" className="btn btn-secondary">Submit</button>
-        </form>
-    </div>
-    )
-}
-
-
-export default LoginComp;
+  
+  export default LoginComp;
