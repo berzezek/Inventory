@@ -129,7 +129,9 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ALLOW_ALL_ORIGINS: True
+CORS_ALLOWED_ORIGINS = ['http://ateca.cn73530.tmweb.ru']
+
+CORS_ALLOW_HEADERS = ['Accept', 'Accept-Language', 'Authorization', 'Content-Type']
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'auths.api.utils.my_jwt_response_handler',
