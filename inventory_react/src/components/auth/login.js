@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {variable} from '../global/url';
 import LoginForm from '../forms/LoginForm';
 import Nav from '../navbar/Nav';

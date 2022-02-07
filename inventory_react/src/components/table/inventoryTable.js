@@ -13,7 +13,6 @@ export default function InventoryTable() {
     return(
         <div className="">
         <h3 className="text-center">All Inventories</h3>
-        <p className="text-end text-light">Total: {inventoryCount} pcs, {totalSum} $</p>
         <Table striped bordered hover variant="light" className="text-center">
           <thead>
             <tr>
@@ -35,12 +34,33 @@ export default function InventoryTable() {
             </tr>
             ))}
             <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                Total
+              </td>
+              <td>
+                PCS
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                {totalSum} $
+              </td>
+              <td>
+                {inventoryCount}
+              </td>
             </tr>
           </tbody>
         </Table>
-            <div className="text-center">
-                <Link to={{ pathname: '/inventory_add', fromDashboard: false }}><button className="btn btn-success">Add Inventory</button></Link>
-            </div>
+
+          <div className="text-center">
+              <Link to={{ pathname: '/inventory_add', fromDashboard: false }}><button className="btn btn-success">Add Inventory</button></Link>
+          </div>
         </div>
     )
 }
