@@ -1,8 +1,7 @@
-from pathlib import Path
-from re import I
+import os
 import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -27,6 +26,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'inventory',
     'rest_framework',
+    'rest_framework.authtoken',
     'auths',
 ]
 
@@ -46,7 +46,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'inventory_react/build'],
+        'DIRS': [os.path.join(BASE_DIR, 'inventory_react/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -110,7 +110,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 STATICFILES_DIRS = (
-    (BASE_DIR / 'inventory_react/build/static'),
+    (os.path.join(BASE_DIR, 'inventory_react/build/static')),
 )
 
 # Default primary key field type
