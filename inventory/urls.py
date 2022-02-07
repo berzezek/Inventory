@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 
 from .views import (
     index,
@@ -7,6 +8,8 @@ from .views import (
 
 urlpatterns = [
     path('', index),
+    # url(r'^', index),
+    # url(r'^/(?P<int>[0-9])', detail),
 
     path('inventory/', index),
     path('inventory_detail/<int:id>/', detail),

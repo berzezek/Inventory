@@ -48,7 +48,6 @@ class LoginComp extends Component {
     };
   
     handle_logout = () => {
-      localStorage.removeItem('token');
       this.setState({ logged_in: false, username: '' });
     };
   
