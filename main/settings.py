@@ -129,7 +129,8 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ALLOWED_ORIGINS = ['http://ateca.cn73530.tmweb.ru']
+# CORS_ALLOWED_ORIGINS = ['http://ateca.cn73530.tmweb.ru']
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_HEADERS = ['Accept', 'Accept-Language', 'Authorization', 'Content-Type']
 
