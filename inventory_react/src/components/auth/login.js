@@ -16,7 +16,10 @@ class LoginComp extends Component {
     componentDidMount() {
       if (this.state.logged_in) {
         fetch(`${variable.MainUrl}api/auth/current_user/`, {
-          headers: {Authorization: `JWT ${localStorage.getItem('token')}`}
+          headers: {
+            Authorization: `JWT ${localStorage.getItem('token')}`},
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         })
           .then(res => res.json())
           .then(json => {
